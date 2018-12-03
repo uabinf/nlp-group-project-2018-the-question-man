@@ -118,3 +118,54 @@ This notebook demonstrates loading the pre-trained model
 and analyzing a document for its topic similarity.
 
 nb/gensim-wiki-models.ipynb
+
+## Filter Wikipedia data set
+
+The wikipedia data set is too big to support easy iteration over building
+the LDA model (each run takes hours).  There is evidence in early 
+results that suggests the text is dirty.
+
+We can use existing filter tools to subsample the data set and clean the articles.
+
+https://github.com/jprorama/parse_mediawiki_dump
+https://github.com/jprorama/parse_wiki_text
+
+### Getting started
+
+We need Rust.
+
+Install rust:
+
+```
+curl https://sh.rustup.rs -sSf | sh`
+```
+
+Source the Rust install:
+
+```
+source $HOME/.cargo/env
+```
+
+Get my fork of the filter project:
+
+```
+git clone git@github.com:jprorama/parse_mediawiki_dump.git`
+cd parse_mediawiki_dump
+git checkout expanded-examples
+cargo build --all-targets
+```
+
+Set up your environment to reference the example builds from within the 
+rust build tree:
+```
+PATH=`pwd`/target/debug/examples:$PATH
+```
+
+Explore the format of wikipedia dump and type of articles. Go to the data
+directory of the class project `data` directory.  Look at some of the 
+output from the dump (interrupt the run when you get some data).
+
+```
+parse_dump enwiki-20181120-pages-articles.xml.bz2
+article_type enwiki-20181120-pages-articles.xml.bz2
+```
