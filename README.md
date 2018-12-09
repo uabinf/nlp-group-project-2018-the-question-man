@@ -74,13 +74,25 @@ This focused dump was then used to compare results of the topic distribution of 
 
 ## Explore neural networks
 
+An original aim for this project was to use RNNs for constructing Wikipedia article recommendations 
+based on thier relevance to web pages in a users browser history.
+The idea was derive a sequence model, either from visited web site names or their topic coverage, and 
+recommend pages/topics that could follow and recommend Wikipedia pages that relate to those topics.
+The motivatation was to provide information that could assist in the learning activities of 
+the user visiting these pages.
+
+This aim remained unexplored due to the challenges confronted when trying to
+build topic models from Wikipedia articles.
+
+An initial attempt was made to better understand the function of Neural Network models
+in general. 
 The first notebook is focused on understanding the basics
 of neural networks, the operations the represent, and the 
 influence of meta-parameters.
 
 nb/basic-nn.ipynb
 
-It hand implements a simple NN and explores how teaching it 
+It hand implements a simple NN and explores teaching it 
 to count, i.e. add one to the previous number.
 
 ## Explore gensim
