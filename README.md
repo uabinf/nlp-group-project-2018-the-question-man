@@ -1,6 +1,76 @@
 # CS762 Project
 
-This project explores RNN for predicting text choices.
+## Overview
+
+This project explores the generation topic models from Wikipedia articles.
+
+This is a complete dump of all Wikipedia pages in the English language wikipedia. 
+Each page in the dump corresponds to a single page on the human visible Wikipedia web site http://en.wikiwiki.org.
+A page is the information content associated with the subject of the page as defined by the page title.
+The expected content and length of a page can vary significantly depending on the subject and expected documentation conventions defined by a community of volunteer editors.
+Biographies of historical figures, summaries of well-known locales, or other popular topics will tend to have comprehensive coverage.
+Some pages originate from a public domain release of Encylopedia Britannica from the eary 20th century, potentially inheriting the editorial conventions and perspectives of that period. 
+Other pages are freshly created pages on as yet undocumented topics of interest to a small number of people.
+
+A page is stored in a structured XML object that includes the namespace, title (subject) of the page, metadata on the current revision of the page, and wikitext of the current article.
+
+Wikipedia is divided into a number of namespaces for different page types.
+The article namespace contains the infomation typically associated with Wikipedia and was the sole focus of this project.
+Other namespaces include pages used by editors to discuss article content and templates to facilitate common operations. 
+These namespaces were ignored during archive processing.
+
+Wikitext is a semi-structured markup language that serves a variety of, often conflicting, needs.
+There is the natural language text that contains the information conveyed in the article.
+There is text markup meant to identify visual representation for display of the text in HTML within a users web browser.
+This includes markup for bold or italic fonts, headings on the page or other HTML documentation conventions, like links to other pages (articles in Wikipedia or websites on the internet).
+Additional markup conventions have been developed to provide structured representation of common types of information, like demographics for different geographic or political boundaries.
+Many of these conventions are implemented as template references with special start and stop symbols.
+Parsing wiki text to separate markup from the natural language text that makes up the information content of the page is a complex endevor.
+Parsing wiki text involves many text processing tasks beyond tokenizing words from the running text and  normalizing the word formats.
+
+For this project we focused on building topic models using Latent Dirichlet Analysis (LDA) as implemented in the gensim toolkit. 
+The LDA was applied to the extracted the text field (wikitext) from the XML page object.
+The wikitext was processed to isolate the English language article text (information content) from common wikitext markup.
+
+Three approaches to corpus construction were explored in this project.
+Both approaches sought to extract the information content from the page's wikitext.
+The first approach used a Wikipedia processing utility (make_wiki) distributed with the gensim toolkit.
+This utility processes each page object in a given compressed archive composed of concatenated XML page objects.
+There are two passes over the input data set, the first extracts the plain text (information text) from the articles and builds a vocabulary for the corpus.
+The vocabulary is constructed from the 100,000 most frequent words that appear in no more than 10% of the articles.
+The second pass builds a TF-IDF matrix represenation of the articles.
+The make_wiki utility uses a collection of regular expresssions to extract the plain text from wikitext.
+
+The full Wikipedia archive is 14Gigabytes of compressed data.
+The represents a formidable amount of data and indeed took considerable time to ingest into the gensim sparse document vector model.
+The initial processing of the full archive into a vocabulary and associated sparse document matrix took approximately six hours with 28-cores.
+This resulted in a vocabulary of 100,000 words derived from 4.5 million articles.
+This 4.5 million by 100,000 matrix contained 720 million non-zero entries.
+
+Given the size of this data set and the time needed to process, two approaches were used to work with a reduced data set.
+These two approaches represent the second and third corpus construction explorations referenced above. 
+
+The first attempt at a reduced development corpus was based on the discovery on a set of Rust-language utilities designed to parse the archive and wikitext.
+These utilities are recommended by the Wikimedia project which produces the Wikipedia archive.
+The developers for this library spend considerable effort producing a wikitext parser that produces highly structured tree of objects meant to emmulate the processing of an actual Wikipedia page.
+They argue against simplistic regular expression parsers like those used in the make_wiki corpus generator from gensim.
+Indeed, their library produced very capable parsed objects which contained "text" fields we could directly use as the source for a plain text article extraction.
+We built an extraction utility that parsed the wikitext fields of pages in the full archive and produced plain text summaries of the first 1000 characters (approximately 200 words) of selected articles.
+The utility further reduced the data set by selecting only every 1000th article from the archive.
+This results in aproximately 4,500 articles of no more that 1000 characters.
+This corpus promises to provide a very useful data set for futher development.
+Unfortunately time constraints of the project prevented comparison of the quality of this archive subset to the reults of the full archive, in both model construction performance and model quality.
+
+The third approach to a reduced corpus appropriate for development was based on focused extraction of Wikipedia articles.
+Wikipedia supports per-acticle XML page dumps.
+This API can be also be used to request multiple pages in a single archive that matches the format of the full dump.
+This makes the resulting article dump useful as input to either of the corpus constructions approaches detailed above.
+The collection of articles was generated from an dump of the archived browser requests of Wikipedia page views of one of the project members (JPR).
+This collection dates back to February 2012 and represents about 1600 distinct wiki articles.
+The page titles were extracted from the Firefox browser bookmarks table and pasted into the export form on Wikipedia.
+This resulted in a match to approaximately 1000 Wikipedia pages exported to the XML dump format.
+Due to time constraints, no effort was made to analyze the disparity of requested and provided articles.
+This focused dump was then used to compare results of the topic distribution of a test document for the two models: the complete Wikipedia archive and the personal Wikipedia archive.
 
 ## Explore neural networks
 
