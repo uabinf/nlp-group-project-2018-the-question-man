@@ -1,5 +1,21 @@
 # CS762 Project
 
+<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Overview](#overview)
+- [Explore neural networks](#explore-neural-networks)
+- [Explore gensim](#explore-gensim)
+- [Wikipedia topic modeling](#wikipedia-topic-modeling)
+	- [Running the notebooks](#running-the-notebooks)
+	- [Stage pre-trained models](#stage-pre-trained-models)
+- [Wikipedia topic modeling: pass one](#wikipedia-topic-modeling-pass-one)
+	- [Build Wikipedia dictionary](#build-wikipedia-dictionary)
+	- [Build the LDA model](#build-the-lda-model)
+	- [Test LDA model](#test-lda-model)
+- [Filter Wikipedia data set](#filter-wikipedia-data-set)
+	- [Getting started](#getting-started)
+
+<!-- /TOC -->
 ## Overview
 
 This project explores the generation topic models from Wikipedia articles.
