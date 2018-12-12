@@ -20,19 +20,19 @@
 
 This project explores the generation topic models from Wikipedia articles.
 
-This is a complete dump of all Wikipedia pages in the English language wikipedia. 
+This is a complete dump of all Wikipedia pages in the English language wikipedia.
 Each page in the dump corresponds to a single page on the human visible Wikipedia web site http://en.wikiwiki.org.
 A page is the information content associated with the subject of the page as defined by the page title.
 The expected content and length of a page can vary significantly depending on the subject and expected documentation conventions defined by a community of volunteer editors.
 Biographies of historical figures, summaries of well-known locales, or other popular topics will tend to have comprehensive coverage.
-Some pages originate from a public domain release of Encylopedia Britannica from the eary 20th century, potentially inheriting the editorial conventions and perspectives of that period. 
+Some pages originate from a public domain release of Encylopedia Britannica from the eary 20th century, potentially inheriting the editorial conventions and perspectives of that period.
 Other pages are freshly created pages on as yet undocumented topics of interest to a small number of people.
 
 A page is stored in a structured XML object that includes the namespace, title (subject) of the page, metadata on the current revision of the page, and wikitext of the current article.
 
 Wikipedia is divided into a number of namespaces for different page types.
 The article namespace contains the infomation typically associated with Wikipedia and was the sole focus of this project.
-Other namespaces include pages used by editors to discuss article content and templates to facilitate common operations. 
+Other namespaces include pages used by editors to discuss article content and templates to facilitate common operations.
 These namespaces were ignored during archive processing.
 
 Wikitext is a semi-structured markup language that serves a variety of, often conflicting, needs.
@@ -44,7 +44,7 @@ Many of these conventions are implemented as template references with special st
 Parsing wiki text to separate markup from the natural language text that makes up the information content of the page is a complex endevor.
 Parsing wiki text involves many text processing tasks beyond tokenizing words from the running text and  normalizing the word formats.
 
-For this project we focused on building topic models using Latent Dirichlet Analysis (LDA) as implemented in the gensim toolkit. 
+For this project we focused on building topic models using Latent Dirichlet Analysis (LDA) as implemented in the gensim toolkit.
 The LDA was applied to the extracted the text field (wikitext) from the XML page object.
 The wikitext was processed to isolate the English language article text (information content) from common wikitext markup.
 
@@ -64,7 +64,7 @@ This resulted in a vocabulary of 100,000 words derived from 4.5 million articles
 This 4.5 million by 100,000 matrix contained 720 million non-zero entries.
 
 Given the size of this data set and the time needed to process, two approaches were used to work with a reduced data set.
-These two approaches represent the second and third corpus construction explorations referenced above. 
+These two approaches represent the second and third corpus construction explorations referenced above.
 
 The first attempt at a reduced development corpus was based on the discovery on a set of Rust-language utilities designed to parse the archive and wikitext.
 These utilities are recommended by the Wikimedia project which produces the Wikipedia archive.
@@ -90,25 +90,25 @@ This focused dump was then used to compare results of the topic distribution of 
 
 ## Explore neural networks
 
-An original aim for this project was to use RNNs for constructing Wikipedia article recommendations 
+An original aim for this project was to use RNNs for constructing Wikipedia article recommendations
 based on thier relevance to web pages in a users browser history.
-The idea was derive a sequence model, either from visited web site names or their topic coverage, and 
+The idea was derive a sequence model, either from visited web site names or their topic coverage, and
 recommend pages/topics that could follow and recommend Wikipedia pages that relate to those topics.
-The motivatation was to provide information that could assist in the learning activities of 
+The motivatation was to provide information that could assist in the learning activities of
 the user visiting these pages.
 
 This aim remained unexplored due to the challenges confronted when trying to
 build topic models from Wikipedia articles.
 
 An initial attempt was made to better understand the function of Neural Network models
-in general. 
+in general.
 The first notebook is focused on understanding the basics
-of neural networks, the operations the represent, and the 
+of neural networks, the operations the represent, and the
 influence of meta-parameters.
 
 nb/basic-nn.ipynb
 
-It hand implements a simple NN and explores teaching it 
+It hand implements a simple NN and explores teaching it
 to count, i.e. add one to the previous number.
 
 ## Explore gensim
@@ -120,7 +120,7 @@ nb/gensim-ex.ipynb
 
 ## Wikipedia topic modeling
 
-The project works with the Wikipedia corpus to build 
+The project works with the Wikipedia corpus to build
 an LDA topic model.
 
 ### Running the notebooks
@@ -131,7 +131,7 @@ loaded just like the notebooks in class but should reserve
 a more significant chunk of resources. This is easiest to
 do by reserving a whole compute node with the -N1 and
 --exclusive flags.  Given the resource need it's easiest
-to use the pascalnodes with 28 cores. We request a GPU for 
+to use the pascalnodes with 28 cores. We request a GPU for
 good measure incase models avail themselves to GPU use:
 
 ```
@@ -157,7 +157,7 @@ cp -r /home/jpr/projects/cs762/project/data .
 
 The gensim site outlines how to work with the wikipedia
 data as a corpus for building topic models.  The goal
-is to use these topic models to classify documents of 
+is to use these topic models to classify documents of
 interest.
 
 ### Build Wikipedia dictionary
@@ -168,12 +168,12 @@ matrix data set built from the Wikipedia article corpus.
 This section can be skipped if the data is pre-staged
 using as described above.
 
-Building these data sets takes many hours, so it's 
+Building these data sets takes many hours, so it's
 to simply copy the project data directory as documented
 above so the notebooks can efficiently use the resulting
 models.
 
-Building the wikipedia dictionary and tfidf document-word 
+Building the wikipedia dictionary and tfidf document-word
 matrix can be done out of band with the wiki utility script.
 
 Download the [2018-11-20 archive of the wikipedia data set](http://dumps.wikimedia.your.org/enwiki/20181120/)
@@ -189,7 +189,7 @@ fi
 
 Run the dictionary and tfidf matrix generation utility. This utility
 will use all cores available to process the documents more efficiently.
-Using one of the 28-core pascal nodes on cheaha provides the 
+Using one of the 28-core pascal nodes on cheaha provides the
 best peformance but will still take almost six hours.  Unfortunately,
 the code is note GPU capable.
 
@@ -220,7 +220,7 @@ nb/gensim-wiki-models.ipynb
 ## Filter Wikipedia data set
 
 The wikipedia data set is too big to support easy iteration over building
-the LDA model (each run takes hours).  There is evidence in early 
+the LDA model (each run takes hours).  There is evidence in early
 results that suggests the text is dirty.
 
 We can use existing filter tools to subsample the data set and clean the articles.
@@ -253,14 +253,14 @@ git checkout expanded-examples
 cargo build --all-targets
 ```
 
-Set up your environment to reference the example builds from within the 
+Set up your environment to reference the example builds from within the
 rust build tree:
 ```
 PATH=`pwd`/target/debug/examples:$PATH
 ```
 
 Explore the format of wikipedia dump and type of articles. Go to the data
-directory of the class project `data` directory.  Look at some of the 
+directory of the class project `data` directory.  Look at some of the
 output from the dump (interrupt the run when you get some data).
 
 ```
