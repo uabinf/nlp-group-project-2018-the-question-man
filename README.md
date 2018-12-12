@@ -3,17 +3,16 @@
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Overview](#overview)
-- [Explore neural networks](#explore-neural-networks)
-- [Explore gensim](#explore-gensim)
 - [Wikipedia topic modeling](#wikipedia-topic-modeling)
 	- [Running the notebooks](#running-the-notebooks)
 	- [Stage pre-trained models](#stage-pre-trained-models)
-- [Wikipedia topic modeling: pass one](#wikipedia-topic-modeling-pass-one)
+	- [Explore LDA model](#test-lda-model)
 	- [Build Wikipedia dictionary](#build-wikipedia-dictionary)
 	- [Build the LDA model](#build-the-lda-model)
-	- [Test LDA model](#test-lda-model)
-- [Filter Wikipedia data set](#filter-wikipedia-data-set)
-	- [Getting started](#getting-started)
+	- [Filter Wikipedia data set](#filter-wikipedia-data-set)
+	  - [Getting started](#getting-started)
+- [Explore neural networks](#explore-neural-networks)
+- [Explore gensim](#explore-gensim)
 
 <!-- /TOC -->
 ## Overview
@@ -88,40 +87,15 @@ This resulted in a match to approaximately 1000 Wikipedia pages exported to the 
 Due to time constraints, no effort was made to analyze the disparity of requested and provided articles.
 This focused dump was then used to compare results of the topic distribution of a test document for the two models: the complete Wikipedia archive and the personal Wikipedia archive.
 
-## Explore neural networks
-
-An original aim for this project was to use RNNs for constructing Wikipedia article recommendations
-based on thier relevance to web pages in a users browser history.
-The idea was derive a sequence model, either from visited web site names or their topic coverage, and
-recommend pages/topics that could follow and recommend Wikipedia pages that relate to those topics.
-The motivatation was to provide information that could assist in the learning activities of
-the user visiting these pages.
-
-This aim remained unexplored due to the challenges confronted when trying to
-build topic models from Wikipedia articles.
-
-An initial attempt was made to better understand the function of Neural Network models
-in general.
-The first notebook is focused on understanding the basics
-of neural networks, the operations the represent, and the
-influence of meta-parameters.
-
-nb/basic-nn.ipynb
-
-It hand implements a simple NN and explores teaching it
-to count, i.e. add one to the previous number.
-
-## Explore gensim
-
-This notebook follows the [gensim getting started tutorials
-for gensim](https://radimrehurek.com/gensim/tutorial.html)
-
-nb/gensim-ex.ipynb
-
 ## Wikipedia topic modeling
 
 The project works with the Wikipedia corpus to build
 an LDA topic model.
+
+The gensim site outlines how to work with the wikipedia
+data as a corpus for building topic models.  The goal
+is to use these topic models to classify documents of
+interest.
 
 ### Running the notebooks
 
@@ -141,7 +115,6 @@ srun -N1 --exclusive --time=12:00:00 --partition=pascalnodes \
 
 ```
 
-
 ### Stage pre-trained models
 
 The wikipidia corpus is 15Gigabyte data set that requires
@@ -153,12 +126,12 @@ level project directory:
 cp -r /home/jpr/projects/cs762/project/data .
 ```
 
-## Wikipedia topic modeling: pass one
+### Test LDA model
 
-The gensim site outlines how to work with the wikipedia
-data as a corpus for building topic models.  The goal
-is to use these topic models to classify documents of
-interest.
+This notebook demonstrates loading the pre-trained model
+and analyzing a document for its topic similarity.
+
+nb/gensim-wiki-models.ipynb
 
 ### Build Wikipedia dictionary
 
@@ -207,17 +180,9 @@ It follows similar logic to the [example gensim tutorial
 for exploring the wikipedia data set](https://radimrehurek.com/gensim/wiki.html)
 but favors the multi-process LDA model for efficiency.
 
-
 nb/gensim-wikipedia-experiments.ipynb
 
-### Test LDA model
-
-This notebook demonstrates loading the pre-trained model
-and analyzing a document for its topic similarity.
-
-nb/gensim-wiki-models.ipynb
-
-## Filter Wikipedia data set
+### Filter Wikipedia data set
 
 The wikipedia data set is too big to support easy iteration over building
 the LDA model (each run takes hours).  There is evidence in early
@@ -228,7 +193,7 @@ We can use existing filter tools to subsample the data set and clean the article
 https://github.com/jprorama/parse_mediawiki_dump
 https://github.com/jprorama/parse_wiki_text
 
-### Getting started
+#### Getting started
 
 We need Rust.
 
@@ -267,3 +232,33 @@ output from the dump (interrupt the run when you get some data).
 parse_dump enwiki-20181120-pages-articles.xml.bz2
 article_type enwiki-20181120-pages-articles.xml.bz2
 ```
+
+## Explore neural networks
+
+An original aim for this project was to use RNNs for constructing Wikipedia article recommendations
+based on thier relevance to web pages in a users browser history.
+The idea was derive a sequence model, either from visited web site names or their topic coverage, and
+recommend pages/topics that could follow and recommend Wikipedia pages that relate to those topics.
+The motivatation was to provide information that could assist in the learning activities of
+the user visiting these pages.
+
+This aim remained unexplored due to the challenges confronted when trying to
+build topic models from Wikipedia articles.
+
+An initial attempt was made to better understand the function of Neural Network models
+in general.
+The first notebook is focused on understanding the basics
+of neural networks, the operations the represent, and the
+influence of meta-parameters.
+
+nb/basic-nn.ipynb
+
+It hand implements a simple NN and explores teaching it
+to count, i.e. add one to the previous number.
+
+## Explore gensim
+
+This notebook follows the [gensim getting started tutorials
+for gensim](https://radimrehurek.com/gensim/tutorial.html)
+
+nb/gensim-ex.ipynb
