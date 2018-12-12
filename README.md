@@ -6,7 +6,7 @@
 - [Wikipedia topic modeling](#wikipedia-topic-modeling)
 	- [Running the notebooks](#running-the-notebooks)
 	- [Stage pre-trained models](#stage-pre-trained-models)
-	- [Explore LDA model](#test-lda-model)
+	- [Explore LDA model](#explore-lda-topic-model)
 	- [Build Wikipedia dictionary](#build-wikipedia-dictionary)
 	- [Build the LDA model](#build-the-lda-model)
 	- [Filter Wikipedia data set](#filter-wikipedia-data-set)
@@ -126,7 +126,7 @@ level project directory:
 cp -r /home/jpr/projects/cs762/project/data .
 ```
 
-### Test LDA model
+### Explore LDA topic model
 
 This notebook demonstrates loading the pre-trained model
 and analyzing a document for its topic similarity.
