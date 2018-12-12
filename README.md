@@ -133,7 +133,7 @@ cp -r /home/jpr/projects/cs762/project/data .
 This notebook demonstrates loading the pre-trained model
 and analyzing a document for its topic similarity.
 
-nb/gensim-wiki-models.ipynb
+[gensim-wiki-models](nb/gensim-wiki-models.ipynb)
 
 ### Preparing the LDA topic model
 
@@ -184,7 +184,7 @@ It follows similar logic to the [example gensim tutorial
 for exploring the wikipedia data set](https://radimrehurek.com/gensim/wiki.html)
 but favors the multi-process LDA model for efficiency.
 
-nb/gensim-wikipedia-experiments.ipynb
+[gensim-wikipedia-experiements](nb/gensim-wikipedia-experiments.ipynb)
 
 #### Filter Wikipedia data set
 
@@ -253,7 +253,7 @@ The first notebook is focused on understanding the basics
 of neural networks, the operations the represent, and the
 influence of meta-parameters.
 
-nb/basic-nn.ipynb
+[basic-nn](nb/basic-nn.ipynb)
 
 It hand implements a simple NN and explores teaching it
 to count, i.e. add one to the previous number.
@@ -263,4 +263,4 @@ to count, i.e. add one to the previous number.
 This notebook follows the [gensim getting started tutorials
 for gensim](https://radimrehurek.com/gensim/tutorial.html)
 
-nb/gensim-ex.ipynb
+[gensim-ex](nb/gensim-ex.ipynb)
