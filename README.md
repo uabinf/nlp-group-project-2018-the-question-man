@@ -20,7 +20,7 @@
 
 This project explores the generation topic models from Wikipedia articles.
 
-This is a complete dump of all Wikipedia pages in the English language wikipedia.
+The project uses a complete dump of all Wikipedia pages in the English language wikipedia.
 Each page in the dump corresponds to a single page on the human visible Wikipedia web site http://en.wikiwiki.org.
 A page is the information content associated with the subject of the page as defined by the page title.
 The expected content and length of a page can vary significantly depending on the subject and expected documentation conventions defined by a community of volunteer editors.
