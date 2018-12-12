@@ -1,20 +1,21 @@
 # CS762 Project
 
-<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC depthFrom:2 depthTo:4 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Overview](#overview)
+- [Running the notebooks](#running-the-notebooks)
 - [Wikipedia topic modeling](#wikipedia-topic-modeling)
-	- [Running the notebooks](#running-the-notebooks)
 	- [Stage pre-trained models](#stage-pre-trained-models)
 	- [Explore LDA model](#explore-lda-topic-model)
-	- [Build Wikipedia dictionary](#build-wikipedia-dictionary)
-	- [Build the LDA model](#build-the-lda-model)
-	- [Filter Wikipedia data set](#filter-wikipedia-data-set)
-	  - [Getting started](#getting-started)
+	- [Preparing the LDA topic model](#preparing-the-lda-topic-model)
+		- [Build Wikipedia dictionary](#build-wikipedia-dictionary)
+		- [Build the LDA model](#build-the-lda-model)
+		- [Filter Wikipedia data set](#filter-wikipedia-data-set)
 - [Explore neural networks](#explore-neural-networks)
 - [Explore gensim](#explore-gensim)
 
 <!-- /TOC -->
+
 ## Overview
 
 This project explores the generation topic models from Wikipedia articles.
@@ -87,19 +88,10 @@ This resulted in a match to approaximately 1000 Wikipedia pages exported to the 
 Due to time constraints, no effort was made to analyze the disparity of requested and provided articles.
 This focused dump was then used to compare results of the topic distribution of a test document for the two models: the complete Wikipedia archive and the personal Wikipedia archive.
 
-## Wikipedia topic modeling
 
-The project works with the Wikipedia corpus to build
-an LDA topic model.
+## Running the notebooks
 
-The gensim site outlines how to work with the wikipedia
-data as a corpus for building topic models.  The goal
-is to use these topic models to classify documents of
-interest.
-
-### Running the notebooks
-
-Because these notebooks work with larger models they favor
+Many of these notebooks work with larger models and favor
 multi-process solutions for distributing work.  They can be
 loaded just like the notebooks in class but should reserve
 a more significant chunk of resources. This is easiest to
@@ -114,6 +106,16 @@ srun -N1 --exclusive --time=12:00:00 --partition=pascalnodes \
      /bin/bash
 
 ```
+
+## Wikipedia topic modeling
+
+The project works with the Wikipedia corpus to build
+an LDA topic model.
+
+The gensim site outlines how to work with the wikipedia
+data as a corpus for building topic models.  The goal
+is to use these topic models to classify documents of
+interest.
 
 ### Stage pre-trained models
 
@@ -133,7 +135,9 @@ and analyzing a document for its topic similarity.
 
 nb/gensim-wiki-models.ipynb
 
-### Build Wikipedia dictionary
+### Preparing the LDA topic model
+
+#### Build Wikipedia dictionary
 
 These notebooks rely on a dictionary and document-word
 matrix data set built from the Wikipedia article corpus.
@@ -173,7 +177,7 @@ srun -N1 --exclusive --partition=pascal nodes \
      `pwd`/wikipedia_ex/wiki
 ```
 
-### Build the LDA model
+#### Build the LDA model
 
 This notebook uses the dictionary to train an LDA model.
 It follows similar logic to the [example gensim tutorial
@@ -182,7 +186,7 @@ but favors the multi-process LDA model for efficiency.
 
 nb/gensim-wikipedia-experiments.ipynb
 
-### Filter Wikipedia data set
+#### Filter Wikipedia data set
 
 The wikipedia data set is too big to support easy iteration over building
 the LDA model (each run takes hours).  There is evidence in early
@@ -192,8 +196,6 @@ We can use existing filter tools to subsample the data set and clean the article
 
 https://github.com/jprorama/parse_mediawiki_dump
 https://github.com/jprorama/parse_wiki_text
-
-#### Getting started
 
 We need Rust.
 
